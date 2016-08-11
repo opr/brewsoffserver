@@ -9,3 +9,7 @@ export function addParty( state, party ) {
 export function addMember( party, member ) {
     return party.set( 'members', party.get('members').push(member) );
 }
+
+export function startBrew( member ) {
+    return Map({ brewInProgress: true, brewer: member } );
+}

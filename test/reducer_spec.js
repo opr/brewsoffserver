@@ -46,4 +46,30 @@ describe('reducer', () => {
             }
         }));
     });
+
+    it('handles START BREW', () => {
+        const initialState = fromJS({
+            parties: {
+                edgethreesixty: {
+                    members: []
+                }
+            }
+        });
+        const action = {
+            type: 'START_BREW',
+            payload: { party: 'edgethreesixty', member: 1 }
+        };
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.equal(fromJS({
+            parties: {
+                edgethreesixty: {
+                    members: [
+                    ],
+                    brewInProgress: true,
+                    brewer: 1
+                }
+            }
+        }));
+    });
 });
