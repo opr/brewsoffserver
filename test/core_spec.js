@@ -181,5 +181,68 @@ describe('application logic', () => {
                 })
             }))
         });
+
+
+        it('doesn\'t do anything if that socket ID doesn\'t exist', () => {
+            const initialState = Map({
+                parties: Map({
+                    edgethreesixty: Map({
+                        members: List([
+                            Map({
+                                name: 'Thomas Roberts',
+                                socketId: 'dd11'
+                            }),
+                            Map({
+                                name: 'Colin McGivern',
+                                socketId: 'dds11'
+                            })
+                        ])
+                    }),
+                    cyberfrog: Map({
+                        members: List([
+                            Map({
+                                name: 'Ken Tsang',
+                                socketId: 'dd22'
+                            }),
+                            Map({
+                                name: 'Jade Masri',
+                                socketId: 'dds22'
+                            })
+                        ])
+                    })
+                })
+            });
+
+            const nextState = removeMemberBySocketId( initialState, 'mymadeupsocket' );
+
+            expect(nextState).to.equal(Map({
+                parties: Map({
+                    edgethreesixty: Map({
+                        members: List([
+                            Map({
+                                name: 'Thomas Roberts',
+                                socketId: 'dd11'
+                            }),
+                            Map({
+                                name: 'Colin McGivern',
+                                socketId: 'dds11'
+                            })
+                        ])
+                    }),
+                    cyberfrog: Map({
+                        members: List([
+                            Map({
+                                name: 'Ken Tsang',
+                                socketId: 'dd22'
+                            }),
+                            Map({
+                                name: 'Jade Masri',
+                                socketId: 'dds22'
+                            })
+                        ])
+                    })
+                })
+            }))
+        });
     });
 });
