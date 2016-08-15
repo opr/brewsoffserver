@@ -14,7 +14,7 @@ describe('store', () => {
             payload: 'edgethreesixty'
         });
 
-        expect(store.getState()).to.equal(Map({"parties": Map({"edgethreesixty": Map({"members": List([])})})}));
+        expect(store.getState()).to.equal(Map({"parties": Map({"edgethreesixty": Map({"members": Map({})})})}));
     });
 
 });

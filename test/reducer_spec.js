@@ -13,7 +13,7 @@ describe('reducer', () => {
         expect(nextState).to.equal(fromJS({
             parties: {
                 edgethreesixty: {
-                    members: []
+                    members: {}
                 }
             }
         }));
@@ -23,7 +23,7 @@ describe('reducer', () => {
         const initialState = fromJS({
             parties: {
                 edgethreesixty: {
-                    members: []
+                    members: {}
                 }
             }
         });
@@ -31,7 +31,7 @@ describe('reducer', () => {
             type: 'ADD_MEMBER',
             payload: {
                 party: 'edgethreesixty',
-                member: Map({name: 'Thomas Roberts', email: 'thomas@edgethreesixty.com'})
+                member: Map({name: 'Thomas Roberts', socketId: 'dd11'})
             }
         };
         const nextState = reducer(initialState, action);
@@ -39,12 +39,11 @@ describe('reducer', () => {
         expect(nextState).to.equal(fromJS({
             parties: {
                 edgethreesixty: {
-                    members: [
-                        {
-                            name: 'Thomas Roberts',
-                            email: 'thomas@edgethreesixty.com'
+                    members: {
+                        dd11: {
+                            name: 'Thomas Roberts'
                         }
-                    ]
+                    }
                 }
             }
         }));
@@ -54,22 +53,22 @@ describe('reducer', () => {
         const initialState = fromJS({
             parties: {
                 edgethreesixty: {
-                    members: []
+                    members: {}
                 }
             }
         });
         const action = {
             type: 'START_BREW',
-            payload: {party: 'edgethreesixty', member: 1}
+            payload: {party: 'edgethreesixty', socketId: 'dd11'}
         };
         const nextState = reducer(initialState, action);
 
         expect(nextState).to.equal(fromJS({
             parties: {
                 edgethreesixty: {
-                    members: [],
+                    members: {},
                     brewInProgress: true,
-                    brewer: 1
+                    brewer: 'dd11'
                 }
             }
         }));
@@ -79,28 +78,24 @@ describe('reducer', () => {
         const initialState = Map({
             parties: Map({
                 edgethreesixty: Map({
-                    members: List([
-                        Map({
-                            name: 'Thomas Roberts',
-                            socketId: 'dd11'
+                    members: Map({
+                        dd11: Map({
+                            name: 'Thomas Roberts'
                         }),
-                        Map({
-                            name: 'Colin McGivern',
-                            socketId: 'dds11'
+                        dds11: Map({
+                            name: 'Colin McGivern'
                         })
-                    ])
+                    })
                 }),
                 cyberfrog: Map({
-                    members: List([
-                        Map({
-                            name: 'Ken Tsang',
-                            socketId: 'dd22'
+                    members: Map({
+                        dd22: Map({
+                            name: 'Ken Tsang'
                         }),
-                        Map({
-                            name: 'Jade Masri',
-                            socketId: 'dds22'
+                        dds22: Map({
+                            name: 'Jade Masri'
                         })
-                    ])
+                    })
                 })
             })
         });
@@ -114,24 +109,21 @@ describe('reducer', () => {
         expect(nextState).to.equal(Map({
             parties: Map({
                 edgethreesixty: Map({
-                    members: List([
-                        Map({
-                            name: 'Colin McGivern',
-                            socketId: 'dds11'
+                    members: Map({
+                        dds11: Map({
+                            name: 'Colin McGivern'
                         })
-                    ])
+                    })
                 }),
                 cyberfrog: Map({
-                    members: List([
-                        Map({
-                            name: 'Ken Tsang',
-                            socketId: 'dd22'
+                    members: Map({
+                        dd22: Map({
+                            name: 'Ken Tsang'
                         }),
-                        Map({
-                            name: 'Jade Masri',
-                            socketId: 'dds22'
+                        dds22: Map({
+                            name: 'Jade Masri'
                         })
-                    ])
+                    })
                 })
             })
         }));
