@@ -1,4 +1,4 @@
-import {Map, List, fromJS} from 'immutable';
+import {Map, fromJS} from 'immutable';
 
 export function addParty(state, party) {
     let newParty = Map({});
@@ -12,16 +12,18 @@ export function addMember(party, member) {
 }
 
 export function startBrew(party, socketId) {
-    console.log(party);
     party = fromJS(party);
     return party.merge(Map({brewInProgress: true, brewer: socketId}));
+}
+
+export function stopBrew( state ) {
+    return state.set('brewInProgress', false).delete('brewer');
 }
 
 export function removeMemberBySocketId(state, socketId) {
     let allParties = fromJS(state).get('parties').entries();
 
     let found = false;
-    let currentMemberId;
     let currentParty;
 
     for( let p of allParties) {

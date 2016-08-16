@@ -74,6 +74,31 @@ describe('reducer', () => {
         }));
     });
 
+
+    it('handles STOP BREW', () => {
+        const initialState = fromJS({
+            parties: {
+                edgethreesixty: {
+                    members: {}
+                }
+            }
+        });
+        const action = {
+            type: 'STOP_BREW',
+            payload: {party: 'edgethreesixty'}
+        };
+        const nextState = reducer(initialState, action);
+
+        expect(nextState).to.equal(fromJS({
+            parties: {
+                edgethreesixty: {
+                    members: {},
+                    brewInProgress: false
+                }
+            }
+        }));
+    });
+
     it('handles REMOVE MEMBER', () => {
         const initialState = Map({
             parties: Map({

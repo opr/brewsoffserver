@@ -1,7 +1,7 @@
 import {List, Map} from 'immutable';
 import {expect} from 'chai';
 
-import {addParty, addMember, removeMemberBySocketId, startBrew} from '../src/party';
+import {addParty, addMember, removeMemberBySocketId, startBrew, stopBrew} from '../src/party';
 
 describe('application logic', () => {
 
@@ -249,6 +249,37 @@ describe('application logic', () => {
                     }),
                     brewInProgress: true,
                     brewer: 'dd11'
+                })
+            )
+
+        });
+
+        it('Stops a brew in a party', () => {
+            const initialState = Map({
+                members: Map({
+                    dd11: Map({
+                        name: 'Thomas Roberts'
+                    }),
+                    dds11: Map({
+                        name: 'Colin McGivern'
+                    })
+                }),
+                brewInProgress: true,
+                brewer: 'dd11'
+            });
+            const nextState = stopBrew(initialState);
+
+            expect(nextState).to.equal(
+                Map({
+                    members: Map({
+                        dd11: Map({
+                            name: 'Thomas Roberts'
+                        }),
+                        dds11: Map({
+                            name: 'Colin McGivern'
+                        })
+                    }),
+                    brewInProgress: false
                 })
             )
 

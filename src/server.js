@@ -14,7 +14,7 @@ export function startServer(store) {
                 if(lastState.getIn( ['parties', partyName ] ) != store.getState().getIn( ['parties', partyName ] ) ) {
 
                     if(store.getState().getIn( [ 'parties', partyName, 'brewInProgress' ] ) && ! lastState.getIn( [ 'parties', partyName, 'brewInProgress' ] ) ) {
-                        io.to(p[0]).emit('brewStarting', store.getState().getIn([ 'parties', partyName, 'members', store.getState().getIn(['parties', partyName, 'brewer']), 'name']));
+                        io.to(p[0]).emit('brewStarting', {name: store.getState().getIn([ 'parties', partyName, 'members', store.getState().getIn(['parties', partyName, 'brewer']), 'name']), brewer: store.getState().getIn(['parties', partyName, 'brewer'])});
                     }
                     io.to(p[0]).emit('state', store.getState().getIn(['parties', partyName]).toJS());
                 }
